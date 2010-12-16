@@ -75,6 +75,7 @@ module Paypal
   class Notification
     attr_accessor :params
     attr_accessor :raw
+    attr_accessor :ssl_strict
 
     # Creates a new paypal object. Pass the raw html you got from paypal in.
     # In a rails application this looks something like this
