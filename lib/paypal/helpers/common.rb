@@ -154,12 +154,12 @@ module Paypal
 
           # The command for encrypted forms is always '_s-xclick'; the real command is in the encrypted data.
           buttons << %Q{<input type="hidden" name="cmd" value="_s-xclick" />}
-          buttons << %Q{<input type="hidden" name="encrypted" value="#{encrypted}" />}
+          buttons << %Q{<input type="hidden" name="encrypted" value="#{CGI.escapeHTML(encrypted)}" />}
         else
           # Just emit all the parameters that we have as hidden fields.
           # Note that the sorting isn't really needed, but it makes testing a lot easier for now.
           params.each do |key, value|
-            buttons << %Q{<input type="hidden" name="#{key}" value="#{value}" />} unless value.nil?
+            buttons << %Q{<input type="hidden" name="#{CGI.escapeHTML(key)}" value="#{CGI.escapeHTML(value)}" />} unless value.nil?
           end
         end
         buttons.join("\n")
@@ -181,7 +181,7 @@ module Paypal
       # * <tt>day_phone_b</tt> -- First three digits of customer's daytime telephon
       def paypal_address(options = {})
         options.collect do |key, value|
-          %Q{<input type="hidden" name="#{key}" value="#{value}" />}
+          %Q{<input type="hidden" name="#{CGI.escapeHTML(key)}" value="#{CGI.escapeHTML(value)}" />}
         end.join("\n")
       end
 
